@@ -35,7 +35,10 @@
         </div>
 
         <div class="kst-image">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&auto=format&fit=crop" alt="KST Ngijo">
+          <img
+            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&auto=format&fit=crop"
+            alt="KST Ngijo"
+          >
         </div>
       </div>
 
@@ -60,7 +63,10 @@
         </div>
 
         <div class="kst-image">
-          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&auto=format&fit=crop" alt="KST Cangar">
+          <img
+            src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&auto=format&fit=crop"
+            alt="KST Cangar"
+          >
         </div>
       </div>
 
@@ -86,7 +92,10 @@
         </div>
 
         <div class="kst-image">
-          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&auto=format&fit=crop" alt="KST Jatikerto">
+          <img
+            src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&auto=format&fit=crop"
+            alt="KST Jatikerto"
+          >
         </div>
       </div>
 
@@ -98,7 +107,7 @@
     <h2>MITRA STRATEGIS</h2>
 
     <?php
-        $partners = [
+      $partners = [
         "WooLom",
         "Relume",
         "Webflow",
@@ -108,62 +117,87 @@
         "KST Ngijo",
         "KST Cangar",
         "KST Jatikerto",
-        ];
+      ];
     ?>
 
     <div class="partner-marquee">
-        <div class="partner-track">
+      <div class="partner-track">
         <?php foreach ($partners as $partner): ?>
-            <div class="partner-item"><?php echo esc_html($partner); ?></div>
+          <div class="partner-item"><?php echo esc_html($partner); ?></div>
         <?php endforeach; ?>
 
         <?php foreach ($partners as $partner): ?>
-            <div class="partner-item"><?php echo esc_html($partner); ?></div>
+          <div class="partner-item"><?php echo esc_html($partner); ?></div>
         <?php endforeach; ?>
-        </div>
+      </div>
     </div>
-    </section>
+  </section>
 
   <!-- PRODUK UNGGULAN -->
   <section class="section" id="produk">
     <div class="container">
       <h2 class="section-title">PRODUK UNGGULAN</h2>
 
-      <div class="product-grid">
-        <?php
-          $products = [
-            ["Produk Jerami", "Pengembangan produk berbasis limbah pertanian.", "KST NGIJO"],
-            ["Produk Atsiri (Minyak Atsiri)", "Produk hasil ekstraksi tanaman aromatik.", "KST NGIJO"],
-            ["Perikanan Air Tawar", "Pengembangan budidaya air tawar terpadu.", "KST CANGAR"],
-            ["Fasilitas Eduwisata", "Kawasan edukasi berbasis wisata dan riset.", "KST CANGAR"],
-            ["Cafe Eduwisata", "Unit layanan wisata yang terintegrasi edukasi.", "KST CANGAR"],
-            ["Pusat Riset", "Fasilitas riset pengembangan teknologi dan inovasi.", "KST NGIJO"],
-            ["Energi Mikrohidro", "Pemanfaatan energi terbarukan skala kecil.", "KST NGIJO"],
-            ["Pengolahan Sampah Terpadu", "Pengolahan limbah kawasan secara berkelanjutan.", "KST NGIJO"],
-            ["Melon Premium", "Hasil pertanian unggulan berbasis teknologi.", "KST JATIKERTO"],
-            ["Hewan Kurban", "Unit layanan peternakan dan pengelolaan ternak.", "KST JATIKERTO"],
-            ["Konservasi", "Program konservasi satwa dan tumbuhan kawasan.", "KST JATIKERTO"],
-            ["Pelayanan Penelitian", "Fasilitas penelitian mahasiswa dan dosen.", "KST JATIKERTO"],
-          ];
+<div class="product-grid">
+  <?php
+    $products = [
+      ["Melon Premium", "Hasil pertanian unggulan berbasis teknologi.", "KST JATIKERTO"],
+      ["Produk Jerami", "Pengembangan produk berbasis limbah pertanian.", "KST NGIJO"],
+      ["Produk Atsiri (Minyak Atsiri)", "Produk hasil ekstraksi tanaman aromatik.", "KST NGIJO"],
+      ["Perikanan Air Tawar", "Pengembangan budidaya air tawar terpadu.", "KST CANGAR"],
+      ["Fasilitas Eduwisata", "Kawasan edukasi berbasis wisata dan riset.", "KST CANGAR"],
+      ["Cafe Eduwisata", "Unit layanan wisata yang terintegrasi edukasi.", "KST CANGAR"],
+      ["Pusat Riset", "Fasilitas riset pengembangan teknologi dan inovasi.", "KST NGIJO"],
+      ["Energi Mikrohidro", "Pemanfaatan energi terbarukan skala kecil.", "KST NGIJO"],
+      ["Pengolahan Sampah Terpadu", "Pengolahan limbah kawasan secara berkelanjutan.", "KST NGIJO"],
+      ["Hewan Kurban", "Unit layanan peternakan dan pengelolaan ternak.", "KST JATIKERTO"],
+      ["Konservasi", "Program konservasi satwa dan tumbuhan kawasan.", "KST JATIKERTO"],
+      ["Pelayanan Penelitian", "Fasilitas penelitian mahasiswa dan dosen.", "KST JATIKERTO"],
+    ];
+  ?>
 
-          foreach ($products as $index => $product):
-        ?>
-          <article class="product-card">
-            <div class="product-image">
-              <span class="tag"><?php echo esc_html($product[2]); ?></span>
-              <img
-                src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&auto=format&fit=crop&sig=<?php echo esc_attr($index); ?>"
-                alt="<?php echo esc_attr($product[0]); ?>"
-              >
-            </div>
+  <?php foreach ($products as $index => $product): ?>
 
-            <div class="product-content">
-              <h3><?php echo esc_html($product[0]); ?></h3>
-              <p><?php echo esc_html($product[1]); ?></p>
-            </div>
-          </article>
-        <?php endforeach; ?>
-      </div>
+    <?php if ($product[0] === "Melon Premium"): ?>
+
+      <!-- CARD MELON PREMIUM SAJA YANG BISA DIKLIK -->
+      <a href="<?php echo esc_url(home_url('/page-melon-premium')); ?>" class="product-card">
+        <div class="product-image">
+          <span class="tag"><?php echo esc_html($product[2]); ?></span>
+          <img
+            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&auto=format&fit=crop&sig=<?php echo esc_attr($index); ?>"
+            alt="<?php echo esc_attr($product[0]); ?>"
+          >
+        </div>
+
+        <div class="product-content">
+          <h3><?php echo esc_html($product[0]); ?></h3>
+          <p><?php echo esc_html($product[1]); ?></p>
+        </div>
+      </a>
+
+    <?php else: ?>
+
+      <!-- CARD PRODUK LAIN TIDAK BISA DIKLIK -->
+      <article class="product-card">
+        <div class="product-image">
+          <span class="tag"><?php echo esc_html($product[2]); ?></span>
+          <img
+            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&auto=format&fit=crop&sig=<?php echo esc_attr($index); ?>"
+            alt="<?php echo esc_attr($product[0]); ?>"
+          >
+        </div>
+
+        <div class="product-content">
+          <h3><?php echo esc_html($product[0]); ?></h3>
+          <p><?php echo esc_html($product[1]); ?></p>
+        </div>
+      </article>
+
+    <?php endif; ?>
+
+  <?php endforeach; ?>
+</div>
     </div>
   </section>
 
