@@ -4,10 +4,10 @@
       <div class="footer-logo">Logo</div>
 
       <nav class="footer-menu">
-        <a href="#profil">Profil</a>
-        <a href="#mitra">Mitra</a>
-        <a href="#produk">Produk</a>
-        <a href="#berita">Berita</a>
+        <a href="<?php echo esc_url(home_url('/#profil')); ?>">Profil</a>
+        <a href="<?php echo esc_url(home_url('/#mitra')); ?>">Mitra</a>
+        <a href="<?php echo esc_url(home_url('/#produk')); ?>">Produk</a>
+        <a href="<?php echo esc_url(kst_get_berita_url()); ?>">Berita</a>
       </nav>
 
       <div class="socials">

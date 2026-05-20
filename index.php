@@ -209,35 +209,37 @@
       <div class="news-grid">
         <?php for ($i = 1; $i <= 3; $i++): ?>
           <article class="news-card">
-            <div class="news-image">
-              <img
-                src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=700&auto=format&fit=crop&sig=<?php echo esc_attr($i); ?>"
-                alt="Berita dan Agenda"
-              >
-            </div>
+            <a class="news-card-link" href="<?php echo esc_url(kst_get_berita_url($i - 1)); ?>">
+              <div class="news-image">
+                <img
+                  src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=700&auto=format&fit=crop&sig=<?php echo esc_attr($i); ?>"
+                  alt="Berita dan Agenda"
+                >
+              </div>
 
-            <div class="news-content">
-              <div class="category">Kategori</div>
-              <h3>Judul Berita dan Agenda</h3>
-              <p>
-                Deskripsi berita dan agenda KST UB untuk memberikan informasi
-                terbaru kepada masyarakat umum.
-              </p>
+              <div class="news-content">
+                <div class="category">Kategori</div>
+                <h3>Judul Berita dan Agenda</h3>
+                <p>
+                  Deskripsi berita dan agenda KST UB untuk memberikan informasi
+                  terbaru kepada masyarakat umum.
+                </p>
 
-              <div class="author">
-                <span class="avatar">UB</span>
-                <div>
-                  <strong>Admin Pusat</strong><br>
-                  <span>12 Januari 2026 • 5 menit membaca</span>
+                <div class="author">
+                  <span class="avatar">UB</span>
+                  <div>
+                    <strong>Admin Pusat</strong><br>
+                    <span>12 Januari 2026 • 5 menit membaca</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
           </article>
         <?php endfor; ?>
       </div>
 
       <div class="btn-center">
-        <a href="#" class="btn-more">Lihat Semua</a>
+        <a href="<?php echo esc_url(kst_get_berita_url()); ?>" class="btn-more">Lihat Semua</a>
       </div>
     </div>
   </section>
