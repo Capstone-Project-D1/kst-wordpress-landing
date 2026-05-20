@@ -1,0 +1,543 @@
+/*
+Theme Name: KST WordPress Landing
+Author: Capstone Project D1
+Version: 1.0
+Description: Landing page untuk Kawasan Sains dan Teknologi Universitas Brawijaya.
+*/
+
+:root {
+  --green: #2fa36b;
+  --green-dark: #248657;
+  --dark: #111827;
+  --muted: #6b7280;
+  --soft: #f7fbf9;
+  --border: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--dark);
+  background: var(--soft);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* NAVBAR */
+.navbar {
+  height: 56px;
+  background: var(--green);
+  color: white;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.navbar-inner {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.nav-menu a {
+  opacity: 0.95;
+}
+
+.nav-menu a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* HERO */
+.hero {
+  min-height: 640px;
+  background:
+    linear-gradient(rgba(70, 70, 70, 0.72), rgba(70, 70, 70, 0.72)),
+    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1600&auto=format&fit=crop") center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 80px 24px;
+}
+
+.hero h1 {
+  max-width: 760px;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 0.98;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  margin-bottom: 18px;
+}
+
+.hero p {
+  font-size: 15px;
+  opacity: 0.95;
+}
+
+/* KST SECTION */
+.kst-wrapper {
+  padding: 88px 0 72px;
+  background: #fbfffd;
+}
+
+.kst-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: center;
+  margin-bottom: 110px;
+}
+
+.kst-item:last-child {
+  margin-bottom: 0;
+}
+
+.kst-item.reverse .kst-image {
+  order: -1;
+}
+
+.kst-text h2 {
+  color: var(--green);
+  font-size: 34px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  letter-spacing: -0.8px;
+}
+
+.kst-text p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #202020;
+  margin-bottom: 22px;
+  text-align: justify;
+}
+
+.kst-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  font-size: 13px;
+  color: #111827;
+}
+
+.kst-list span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kst-list span::before {
+  content: "✺";
+  color: #111827;
+  font-size: 12px;
+}
+
+.kst-image {
+  width: 100%;
+  aspect-ratio: 1 / 0.88;
+  background: #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.kst-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+/* MITRA */
+.partner-strip {
+  background: var(--green);
+  color: white;
+  padding: 52px 0 42px;
+  overflow: hidden;
+}
+
+.partner-strip h2 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 35px;
+  letter-spacing: -0.5px;
+}
+
+.partner-marquee {
+  width: 100%;
+  overflow: hidden;
+}
+
+.partner-track {
+  display: flex;
+  width: max-content;
+  gap: 42px;
+  white-space: nowrap;
+  animation: partner-marquee 28s linear infinite;
+}
+
+.partner-marquee:hover .partner-track {
+  animation-play-state: paused;
+}
+
+.partner-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  opacity: 0.95;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.partner-item::before {
+  content: "◈";
+  font-size: 14px;
+}
+
+@keyframes partner-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* PRODUCTS */
+.section {
+  padding: 90px 0;
+  background: #fbfffd;
+}
+
+.section-title {
+  text-align: center;
+  color: var(--green);
+  font-size: 32px;
+  font-weight: 900;
+  margin-bottom: 55px;
+  letter-spacing: -0.6px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.product-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: 0.2s ease;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
+}
+
+.product-image {
+  height: 230px;
+  background: #d9d9d9;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.88;
+}
+
+.tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #111;
+  color: white;
+  font-size: 9px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.product-content {
+  padding: 16px 16px 18px;
+}
+
+.product-content h3 {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.product-content p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* NEWS */
+.news-section {
+  padding: 70px 0 100px;
+  background: #fbfffd;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.news-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  overflow: hidden;
+  transition: 0.2s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
+}
+
+.news-image {
+  height: 205px;
+  background: #d9d9d9;
+}
+
+.news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.86;
+}
+
+.news-content {
+  padding: 18px;
+}
+
+.category {
+  color: var(--muted);
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+
+.news-content h3 {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.news-content p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.author {
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #111;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+}
+
+.btn-center {
+  text-align: center;
+  margin-top: 34px;
+}
+
+.btn-more {
+  display: inline-block;
+  background: var(--green);
+  color: white;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.btn-more:hover {
+  background: var(--green-dark);
+}
+
+/* FOOTER */
+.footer {
+  background: var(--green);
+  color: white;
+  padding: 54px 0 28px;
+}
+
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 38px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.footer-logo {
+  font-size: 20px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.footer-menu {
+  display: flex;
+  gap: 28px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.socials {
+  display: flex;
+  gap: 13px;
+  font-size: 13px;
+}
+
+.footer-bottom {
+  padding-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.footer-links {
+  display: flex;
+  gap: 18px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .nav-menu {
+    gap: 18px;
+    font-size: 12px;
+  }
+
+  .kst-item,
+  .kst-item.reverse {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 80px;
+  }
+
+  .kst-item.reverse .kst-image {
+    order: 0;
+  }
+
+  .product-grid,
+  .news-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .container,
+  .navbar-inner {
+    width: min(100% - 28px, 1120px);
+  }
+
+  .navbar {
+    height: auto;
+    padding: 16px 0;
+  }
+
+  .navbar-inner {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .nav-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero {
+    min-height: 460px;
+  }
+
+  .kst-wrapper,
+  .section,
+  .news-section {
+    padding: 60px 0;
+  }
+
+  .product-grid,
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-menu,
+  .footer-links {
+    flex-wrap: wrap;
+  }
+}
