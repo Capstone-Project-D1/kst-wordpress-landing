@@ -1,13 +1,9 @@
 <?php
-/**
- * Template for Melon Premium Detail Page
- */
 ?>
 
 <?php get_header(); ?>
 
 <style>
-  /* CSS KHUSUS HALAMAN MELON PREMIUM */
   .product-detail-section {
     padding: 88px 0 120px;
     background: #fbfffd;
@@ -197,11 +193,7 @@
     <div class="container product-detail-container">
 
       <div class="product-detail-left">
-        <!-- BAGIAN YANG DIGANTI:
-             Breadcrumb Home > Produk Unggulan > Melon Premium
-             diganti jadi tombol Back saja.
-        -->
-        <a href="<?php echo esc_url(home_url('/#index')); ?>" class="back-link">
+        <a href="<?php echo esc_url(home_url('')); ?>" class="back-link">
           ← Back
         </a>
 
