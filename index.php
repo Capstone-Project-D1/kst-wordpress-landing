@@ -161,7 +161,7 @@
     <?php if ($product[0] === "Melon Premium"): ?>
 
       <!-- CARD MELON PREMIUM SAJA YANG BISA DIKLIK -->
-      <a href="<?php echo esc_url(home_url('/melon-premium')); ?>" class="product-card">
+      <a href="<?php echo esc_url(kst_get_product_url('melon-premium')); ?>" class="product-card">
         <div class="product-image">
           <span class="tag"><?php echo esc_html($product[2]); ?></span>
           <img

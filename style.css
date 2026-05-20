@@ -28,6 +28,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: var(--dark);
   background: var(--soft);
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
 }
 
 a {
@@ -42,7 +47,7 @@ a {
 
 /* NAVBAR */
 .navbar {
-  height: 56px;
+  min-height: 56px;
   background: var(--green);
   color: white;
   display: flex;
@@ -50,6 +55,10 @@ a {
   position: sticky;
   top: 0;
   z-index: 50;
+}
+
+body.admin-bar .navbar {
+  top: 32px;
 }
 
 .navbar-inner {
@@ -247,7 +256,7 @@ a {
 
 /* PRODUCTS */
 .section {
-  padding: 90px 0;
+  padding: clamp(64px, 8vw, 90px) 0;
   background: #fbfffd;
 }
 
@@ -327,7 +336,7 @@ a {
 
 /* NEWS */
 .news-section {
-  padding: 70px 0 100px;
+  padding: clamp(60px, 7vw, 70px) 0 clamp(74px, 10vw, 100px);
   background: #fbfffd;
 }
 
@@ -433,7 +442,7 @@ a {
 
 /* BERITA PAGE */
 .berita-page {
-  padding: 74px 0 104px;
+  padding: clamp(60px, 8vw, 74px) 0 clamp(76px, 10vw, 104px);
   background: #fbfffd;
 }
 
@@ -678,10 +687,59 @@ a {
 }
 
 /* RESPONSIVE */
+@media (max-width: 1200px) {
+  .container,
+  .navbar-inner {
+    width: min(100% - 36px, 1120px);
+  }
+
+  .product-grid,
+  .news-grid,
+  .berita-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-image,
+  .news-image,
+  .berita-card-image {
+    height: 220px;
+  }
+}
+
 @media (max-width: 900px) {
+  body.admin-bar .navbar {
+    top: 46px;
+  }
+
+  .navbar {
+    min-height: 60px;
+  }
+
   .nav-menu {
-    gap: 18px;
+    gap: 14px;
     font-size: 12px;
+  }
+
+  .hero {
+    min-height: 540px;
+    padding: 72px 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 8vw, 48px);
+    line-height: 1.02;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .kst-wrapper {
+    padding: 70px 0 64px;
+  }
+
+  .section-title {
+    margin-bottom: 38px;
   }
 
   .kst-item,
@@ -706,6 +764,10 @@ a {
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .footer-top {
+    gap: 14px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -725,12 +787,29 @@ a {
   }
 
   .nav-menu {
+    width: 100%;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 11px;
+  }
+
+  .nav-menu a {
+    padding: 6px 2px;
   }
 
   .hero {
-    min-height: 460px;
+    min-height: 430px;
+    padding: 52px 16px;
+  }
+
+  .hero h1 {
+    font-size: clamp(30px, 10vw, 38px);
+    letter-spacing: -0.8px;
+  }
+
+  .hero p {
+    font-size: 13px;
   }
 
   .kst-wrapper,
@@ -761,5 +840,35 @@ a {
   .footer-menu,
   .footer-links {
     flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .container,
+  .navbar-inner {
+    width: min(100% - 20px, 1120px);
+  }
+
+  .product-content,
+  .news-content,
+  .berita-card-content {
+    padding: 14px;
+  }
+
+  .berita-title {
+    font-size: 30px;
+    line-height: 1.12;
+  }
+
+  .berita-subtitle {
+    font-size: 13px;
+    line-height: 1.7;
   }
 }

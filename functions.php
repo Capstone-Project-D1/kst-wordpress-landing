@@ -18,6 +18,15 @@ function kst_landing_enqueue_assets() {
 
 add_action('wp_enqueue_scripts', 'kst_landing_enqueue_assets');
 
+function kst_get_product_url($slug) {
+  return add_query_arg(
+    array(
+      'kst_product' => sanitize_key($slug),
+    ),
+    home_url('/')
+  );
+}
+
 function kst_get_berita_url($detail = null) {
   $url = add_query_arg('kst_berita', '1', home_url('/'));
 
@@ -45,3 +54,21 @@ function kst_landing_render_berita_template($template) {
 }
 
 add_filter('template_include', 'kst_landing_render_berita_template', 99);
+
+function kst_landing_render_product_template($template) {
+  $product = isset($_GET['kst_product']) ? sanitize_key(wp_unslash($_GET['kst_product'])) : '';
+
+  if ('melon-premium' !== $product) {
+    return $template;
+  }
+
+  $product_template = get_template_directory() . '/page-melon-premium.php';
+
+  if (file_exists($product_template)) {
+    return $product_template;
+  }
+
+  return $template;
+}
+
+add_filter('template_include', 'kst_landing_render_product_template', 100);
