@@ -1,7 +1,39 @@
 <?php
+/*
+Template Name: Halaman Produk
+*/
 ?>
 
 <?php get_header(); ?>
+
+<?php
+$product_slug = isset($_GET['kst_product']) ? sanitize_key(wp_unslash($_GET['kst_product'])) : '';
+$current_product = $product_slug ? get_page_by_path($product_slug, OBJECT, 'produk') : null;
+
+if (!$current_product instanceof WP_Post) {
+    $fallback_query = new WP_Query(
+        array(
+            'post_type' => 'produk',
+            'post_status' => 'publish',
+            'posts_per_page' => 1,
+        )
+    );
+
+    if ($fallback_query->have_posts()) {
+        $fallback_query->the_post();
+        $current_product = get_post(get_the_ID());
+    }
+
+    wp_reset_postdata();
+}
+
+$current_product_id = $current_product instanceof WP_Post ? (int) $current_product->ID : 0;
+$product_title = $current_product_id ? get_the_title($current_product_id) : 'Produk belum tersedia';
+$product_content = $current_product_id ? wp_strip_all_tags(get_post_field('post_content', $current_product_id)) : 'Silakan tambahkan data produk melalui dashboard admin.';
+$product_content = $product_content ? $product_content : 'Silakan tambahkan deskripsi produk pada editor konten.';
+$product_main_image = $current_product_id ? get_the_post_thumbnail_url($current_product_id, 'large') : '';
+$product_main_image = $product_main_image ? $product_main_image : 'https://images.unsplash.com/photo-1571575173700-afb9492e6a50?w=900&auto=format&fit=crop';
+?>
 
 <style>
 .product-detail-section {
@@ -237,35 +269,28 @@
         <div class="container product-detail-container">
 
             <div class="product-detail-left">
-                <a href="<?php echo esc_url(home_url('')); ?>" class="back-link">
+                <a href="<?php echo esc_url(home_url('/#produk')); ?>" class="back-link">
                     ← Back
                 </a>
 
-                <h1>Melon Premium</h1>
+                <h1><?php echo esc_html($product_title); ?></h1>
 
-                <p>
-                    Melon premium berkualitas tinggi yang dibudidayakan dengan teknik pertanian
-                    modern, dipantau secara ketat untuk menghasilkan buah yang manis, segar,
-                    dan konsisten setiap panennya.
-                </p>
+                <p><?php echo esc_html(wp_trim_words($product_content, 46)); ?></p>
 
                 <div class="product-gallery-small">
                     <div class="detail-small-image">
-                        <img src="https://images.unsplash.com/photo-1571575173700-afb9492e6a50?w=600&auto=format&fit=crop"
-                            alt="Melon Premium">
+                        <img src="<?php echo esc_url($product_main_image); ?>" alt="<?php echo esc_attr($product_title); ?>">
                     </div>
 
                     <div class="detail-small-image">
-                        <img src="https://images.unsplash.com/photo-1571575173700-afb9492e6a50?w=601&auto=format&fit=crop"
-                            alt="Melon Premium">
+                        <img src="<?php echo esc_url($product_main_image); ?>" alt="<?php echo esc_attr($product_title); ?>">
                     </div>
                 </div>
             </div>
 
             <div class="product-detail-right">
                 <div class="detail-main-image">
-                    <img src="https://images.unsplash.com/photo-1571575173700-afb9492e6a50?w=900&auto=format&fit=crop"
-                        alt="Melon Premium">
+                    <img src="<?php echo esc_url($product_main_image); ?>" alt="<?php echo esc_attr($product_title); ?>">
                 </div>
             </div>
 
@@ -278,30 +303,36 @@
 
             <div class="related-product-grid">
                 <?php
-          $relatedProducts = [
-            ["Produk Jamu", "Pengembangan produk herbal berbasis bahan alami.", "KST Ngijo"],
-            ["Produk Atsiri (Minyak Atsiri)", "Produk hasil ekstraksi tanaman aromatik atau rempah.", "KST Ngijo"],
-            ["Perikanan Air Tawar", "Pengembangan budidaya dan inovasi di bidang perikanan.", "KST Ngijo"],
-            ["Pusat Riset", "Fokus utama pada budidaya kentang dan varietas unggulan.", "KST Cangar"],
-            ["Energi Mikrohidro", "Pemanfaatan energi terbarukan berbasis aliran air.", "KST Ngijo"],
-            ["Energi Mikrohidro", "Pemanfaatan energi terbarukan berbasis aliran air.", "KST Ngijo"],
-          ];
+                    $related_products = new WP_Query(
+                        array(
+                            'post_type' => 'produk',
+                            'post_status' => 'publish',
+                            'posts_per_page' => 6,
+                            'post__not_in' => $current_product_id ? array($current_product_id) : array(),
+                        )
+                    );
 
-          foreach ($relatedProducts as $index => $product):
+                    if ($related_products->have_posts()) :
+                        while ($related_products->have_posts()) :
+                            $related_products->the_post();
+                            $related_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
+                            $related_image = $related_image ? $related_image : 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700&auto=format&fit=crop';
+                            $related_excerpt = has_excerpt() ? get_the_excerpt() : wp_trim_words(wp_strip_all_tags(get_the_content()), 12);
         ?>
-                <article class="related-product-card">
+                                <a href="<?php echo esc_url(kst_get_product_url(get_post_field('post_name', get_the_ID()))); ?>" class="related-product-card">
                     <div class="related-product-image">
-                        <span class="tag"><?php echo esc_html($product[2]); ?></span>
-                        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700&auto=format&fit=crop&sig=<?php echo esc_attr($index + 20); ?>"
-                            alt="<?php echo esc_attr($product[0]); ?>">
+                                                <span class="tag">PRODUK KST</span>
+                                                <img src="<?php echo esc_url($related_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
                     </div>
 
                     <div class="related-product-content">
-                        <h3><?php echo esc_html($product[0]); ?></h3>
-                        <p><?php echo esc_html($product[1]); ?></p>
+                                                <h3><?php the_title(); ?></h3>
+                                                <p><?php echo esc_html($related_excerpt); ?></p>
                     </div>
-                </article>
-                <?php endforeach; ?>
+                                </a>
+                                <?php endwhile; ?>
+                                <?php wp_reset_postdata(); ?>
+                                <?php endif; ?>
             </div>
         </div>
     </section>

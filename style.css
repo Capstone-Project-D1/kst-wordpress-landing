@@ -159,6 +159,18 @@ body.admin-bar .navbar {
   text-align: justify;
 }
 
+/* Make lists inside KST content indented and readable */
+.kst-text ul {
+  margin: 0 0 18px 1.25rem;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.kst-text ul li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
 .kst-list {
   display: flex;
   flex-direction: column;
