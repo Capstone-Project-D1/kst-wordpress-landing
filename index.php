@@ -84,28 +84,50 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
     <section class="partner-strip" id="mitra">
         <h2>MITRA STRATEGIS</h2>
 
-        <?php
-      $partners = [
-        "WooLom",
-        "Relume",
-        "Webflow",
-        "Universitas Brawijaya",
-        "Agro Techno Park",
-        "Green Science Park",
-        "KST Ngijo",
-        "KST Cangar",
-        "KST Jatikerto",
-      ];
-    ?>
+                <?php
+            $partners = function_exists('kst_get_partner_items') ? kst_get_partner_items() : array();
+
+            if (empty($partners)) {
+                $partners = array(
+                    array('name' => 'WooLom', 'logo_id' => 0),
+                    array('name' => 'Relume', 'logo_id' => 0),
+                    array('name' => 'Webflow', 'logo_id' => 0),
+                    array('name' => 'Universitas Brawijaya', 'logo_id' => 0),
+                    array('name' => 'Agro Techno Park', 'logo_id' => 0),
+                    array('name' => 'Green Science Park', 'logo_id' => 0),
+                    array('name' => 'KST Ngijo', 'logo_id' => 0),
+                    array('name' => 'KST Cangar', 'logo_id' => 0),
+                    array('name' => 'KST Jatikerto', 'logo_id' => 0),
+                );
+            }
+        ?>
 
         <div class="partner-marquee">
             <div class="partner-track">
-                <?php foreach ($partners as $partner): ?>
-                <div class="partner-item"><?php echo esc_html($partner); ?></div>
-                <?php endforeach; ?>
+                                <?php foreach ($partners as $partner): ?>
+                                <div class="partner-item">
+                                        <span class="partner-logo" aria-hidden="true">
+                                                <?php if (!empty($partner['logo_id'])) : ?>
+                                                <?php echo wp_get_attachment_image((int) $partner['logo_id'], 'thumbnail', false, array('class' => 'partner-logo-image', 'alt' => esc_attr($partner['name']))); ?>
+                                                <?php else : ?>
+                                                <span class="partner-logo-fallback"><?php echo esc_html(mb_substr($partner['name'], 0, 1)); ?></span>
+                                                <?php endif; ?>
+                                        </span>
+                                        <span class="partner-name"><?php echo esc_html($partner['name']); ?></span>
+                                </div>
+                                <?php endforeach; ?>
 
                 <?php foreach ($partners as $partner): ?>
-                <div class="partner-item"><?php echo esc_html($partner); ?></div>
+                                <div class="partner-item">
+                                        <span class="partner-logo" aria-hidden="true">
+                                                <?php if (!empty($partner['logo_id'])) : ?>
+                                                <?php echo wp_get_attachment_image((int) $partner['logo_id'], 'thumbnail', false, array('class' => 'partner-logo-image', 'alt' => esc_attr($partner['name']))); ?>
+                                                <?php else : ?>
+                                                <span class="partner-logo-fallback"><?php echo esc_html(mb_substr($partner['name'], 0, 1)); ?></span>
+                                                <?php endif; ?>
+                                        </span>
+                                        <span class="partner-name"><?php echo esc_html($partner['name']); ?></span>
+                                </div>
                 <?php endforeach; ?>
             </div>
         </div>

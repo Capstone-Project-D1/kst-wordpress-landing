@@ -84,6 +84,26 @@ function kst_ub_register_post_types() {
       'rewrite' => array('slug' => 'berita-kst'),
     )
   );
+
+  register_post_type(
+    'mitra',
+    array(
+      'labels' => array(
+        'name' => __('Mitra Strategis', 'kst-wordpress-landing'),
+        'singular_name' => __('Mitra Strategis', 'kst-wordpress-landing'),
+        'menu_name' => __('Mitra Strategis', 'kst-wordpress-landing'),
+        'add_new_item' => __('Tambah Mitra', 'kst-wordpress-landing'),
+        'edit_item' => __('Edit Mitra', 'kst-wordpress-landing'),
+      ),
+      'public' => true,
+      'show_in_rest' => true,
+      'menu_position' => 23,
+      'menu_icon' => 'dashicons-groups',
+      'supports' => array('title', 'thumbnail', 'page-attributes'),
+      'has_archive' => false,
+      'rewrite' => array('slug' => 'mitra-strategis'),
+    )
+  );
 }
 
 add_action('init', 'kst_ub_register_post_types');
@@ -244,3 +264,34 @@ function kst_landing_render_product_template($template) {
 }
 
 add_filter('template_include', 'kst_landing_render_product_template', 100);
+
+function kst_get_partner_items() {
+  $partner_query = new WP_Query(
+    array(
+      'post_type' => 'mitra',
+      'post_status' => 'publish',
+      'posts_per_page' => -1,
+      'orderby' => array(
+        'menu_order' => 'ASC',
+        'title' => 'ASC',
+      ),
+    )
+  );
+
+  $partner_items = array();
+
+  if ($partner_query->have_posts()) {
+    while ($partner_query->have_posts()) {
+      $partner_query->the_post();
+
+      $partner_items[] = array(
+        'name' => get_the_title(),
+        'logo_id' => get_post_thumbnail_id(),
+      );
+    }
+
+    wp_reset_postdata();
+  }
+
+  return $partner_items;
+}
