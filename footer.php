@@ -1,32 +1,32 @@
 <footer class="footer">
-    <div class="container">
-        <div class="footer-top">
-            <div class="footer-logo">Logo</div>
+    <div class="container footer-shell">
+        <div class="footer-brand-block">
+            <a class="footer-brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="Beranda">
+                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/logo.png"
+                    alt="Logo Universitas Brawijaya">
+            </a>
 
-            <nav class="footer-menu">
-                <a href="<?php echo esc_url(home_url('/#profil')); ?>">Profil</a>
-                <a href="<?php echo esc_url(home_url('/#mitra')); ?>">Mitra</a>
-                <a href="<?php echo esc_url(home_url('/#produk')); ?>">Produk</a>
-                <a href="<?php echo esc_url(kst_get_berita_url()); ?>">Berita</a>
-            </nav>
-
-            <div class="socials">
-                <span>○</span>
-                <span>◎</span>
-                <span>𝕏</span>
-                <span>in</span>
-                <span>▶</span>
+            <div class="footer-address-wrap">
+                <h2>Alamat</h2>
+                <address>
+                    Gedung Layanan Bersama, Lt. 2,<br>
+                    Ketawanggede, Kec. Lowokwaru,<br>
+                    Kota Malang, Jawa Timur 65145
+                </address>
             </div>
         </div>
 
-        <div class="footer-bottom">
-            <p>© <?php echo date('Y'); ?> Universitas Brawijaya. All rights reserved.</p>
+        <nav class="footer-menu" aria-label="Navigasi footer">
+            <a href="<?php echo esc_url(home_url('/#profil')); ?>">Profil</a>
+            <a href="<?php echo esc_url(home_url('/#mitra')); ?>">Mitra</a>
+            <a href="<?php echo esc_url(home_url('/#produk')); ?>">Produk</a>
+            <a href="<?php echo esc_url(home_url('/#berita')); ?>">Berita</a>
+        </nav>
+    </div>
 
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Cookie Settings</a>
-            </div>
+    <div class="footer-bar">
+        <div class="container footer-bar-inner">
+            <p>Copyright © <?php echo date('Y'); ?> Universitas Brawijaya.</p>
         </div>
     </div>
 </footer>

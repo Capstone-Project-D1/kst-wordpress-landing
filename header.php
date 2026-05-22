@@ -12,9 +12,11 @@
 
     <header class="navbar">
         <div class="navbar-inner">
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="logo">Logo</a>
-
-            <nav class="nav-menu">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="logo" aria-label="Beranda">
+                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/logo.png"
+                    alt="Logo Universitas Brawijaya">
+            </a>
+            <nav class="nav-menu" aria-label="Navigasi utama">
                 <a href="<?php echo esc_url(home_url('/#profil')); ?>">Profil</a>
                 <a href="<?php echo esc_url(home_url('/#mitra')); ?>">Mitra</a>
                 <a href="<?php echo esc_url(home_url('/#produk')); ?>">Produk</a>
