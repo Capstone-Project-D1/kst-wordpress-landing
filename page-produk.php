@@ -31,8 +31,34 @@ $current_product_id = $current_product instanceof WP_Post ? (int) $current_produ
 $product_title = $current_product_id ? get_the_title($current_product_id) : 'Produk belum tersedia';
 $product_content = $current_product_id ? wp_strip_all_tags(get_post_field('post_content', $current_product_id)) : 'Silakan tambahkan data produk melalui dashboard admin.';
 $product_content = $product_content ? $product_content : 'Silakan tambahkan deskripsi produk pada editor konten.';
-$product_main_image = $current_product_id ? get_the_post_thumbnail_url($current_product_id, 'large') : '';
-$product_main_image = $product_main_image ? $product_main_image : 'https://images.unsplash.com/photo-1571575173700-afb9492e6a50?w=900&auto=format&fit=crop';
+
+// Get ACF Detail Images
+$images = array();
+if ($current_product_id) {
+    $img1 = function_exists('get_field') ? get_field('gambar_detail_1', $current_product_id) : '';
+    $img2 = function_exists('get_field') ? get_field('gambar_detail_2', $current_product_id) : '';
+    $img3 = function_exists('get_field') ? get_field('gambar_detail_3', $current_product_id) : '';
+
+    if ($img1) $images[] = $img1;
+    if ($img2) $images[] = $img2;
+    if ($img3) $images[] = $img3;
+}
+
+// Fallback to Featured Image
+if (empty($images) && $current_product_id) {
+    $featured_image = get_the_post_thumbnail_url($current_product_id, 'large');
+    if ($featured_image) {
+        $images[] = $featured_image;
+    }
+}
+
+// Global fallback if absolutely no images are available
+if (empty($images)) {
+    $images[] = 'https://images.unsplash.com/photo-1571575173700-afb9492e6a50?w=900&auto=format&fit=crop';
+}
+
+// Main image displayed initially is the first image in our list
+$product_main_image = $images[0];
 ?>
 
 <style>
@@ -83,28 +109,249 @@ $product_main_image = $product_main_image ? $product_main_image : 'https://image
 
 .product-gallery-small {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
 }
 
-.detail-small-image {
-    height: 240px;
-    background: #d9d9d9;
+.detail-small-image-btn {
+    height: 120px;
+    background: #f3f4f6;
+    border: 2px solid transparent;
+    border-radius: 8px;
     overflow: hidden;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.detail-small-image img,
-.detail-main-image img {
+.detail-small-image-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.detail-small-image-btn.active {
+    border-color: var(--green);
+    box-shadow: 0 0 0 4px rgba(47, 163, 107, 0.25);
+}
+
+.detail-small-image-btn img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.detail-small-image-btn:hover img {
+    transform: scale(1.06);
 }
 
 .detail-main-image {
     width: 100%;
     height: 460px;
-    background: #d9d9d9;
+    background: #f3f4f6;
+    border-radius: 12px;
     overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.detail-main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.2s ease;
+}
+
+.zoom-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+}
+
+.detail-main-image:hover .zoom-overlay {
+    opacity: 1;
+}
+
+.zoom-icon {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 6px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    transform: scale(0.85);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.detail-main-image:hover .zoom-icon {
+    transform: scale(1);
+}
+
+.zoom-overlay span {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Lightbox Modal */
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(12px);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox-modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-content {
+    max-width: 85%;
+    max-height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lightbox-modal.show .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    color: #f3f4f6;
+    font-size: 40px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    z-index: 100001;
+    line-height: 1;
+}
+
+.lightbox-close:hover {
+    color: var(--green);
+    transform: scale(1.1);
+}
+
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.3s, transform 0.2s, color 0.3s;
+    z-index: 100001;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+}
+
+.lightbox-prev {
+    left: 32px;
+}
+
+.lightbox-next {
+    right: 32px;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: var(--green);
+    color: white;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.lightbox-prev:active,
+.lightbox-next:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.lightbox-caption {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #e5e7eb;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    z-index: 100001;
+    background: rgba(17, 24, 39, 0.6);
+    padding: 8px 18px;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .lightbox-prev,
+    .lightbox-next {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+    }
+    .lightbox-prev {
+        left: 16px;
+    }
+    .lightbox-next {
+        right: 16px;
+    }
+    .lightbox-close {
+        top: 16px;
+        right: 20px;
+    }
+    .lightbox-caption {
+        bottom: 20px;
+        font-size: 13px;
+        width: 80%;
+    }
 }
 
 .related-product-section {
@@ -277,20 +524,26 @@ $product_main_image = $product_main_image ? $product_main_image : 'https://image
 
                 <p><?php echo esc_html(wp_trim_words($product_content, 46)); ?></p>
 
-                <div class="product-gallery-small">
-                    <div class="detail-small-image">
-                        <img src="<?php echo esc_url($product_main_image); ?>" alt="<?php echo esc_attr($product_title); ?>">
+                <?php if (count($images) > 1) : ?>
+                    <div class="product-gallery-small">
+                        <?php foreach ($images as $index => $img_url) : ?>
+                            <button type="button" class="detail-small-image-btn <?php echo $index === 0 ? 'active' : ''; ?>" data-image-index="<?php echo $index; ?>" data-image-url="<?php echo esc_url($img_url); ?>" aria-label="Lihat gambar <?php echo $index + 1; ?>">
+                                <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr($product_title); ?> - <?php echo $index + 1; ?>">
+                            </button>
+                        <?php endforeach; ?>
                     </div>
-
-                    <div class="detail-small-image">
-                        <img src="<?php echo esc_url($product_main_image); ?>" alt="<?php echo esc_attr($product_title); ?>">
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
 
             <div class="product-detail-right">
-                <div class="detail-main-image">
-                    <img src="<?php echo esc_url($product_main_image); ?>" alt="<?php echo esc_attr($product_title); ?>">
+                <div class="detail-main-image" id="main-image-container" style="cursor: pointer; position: relative;">
+                    <img id="product-main-img-el" src="<?php echo esc_url($product_main_image); ?>" alt="<?php echo esc_attr($product_title); ?>">
+                    <div class="zoom-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="zoom-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637z" />
+                        </svg>
+                        <span>Click to Zoom</span>
+                    </div>
                 </div>
             </div>
 
@@ -337,5 +590,145 @@ $product_main_image = $product_main_image ? $product_main_image : 'https://image
         </div>
     </section>
 </main>
+
+<!-- Lightbox Modal -->
+<div id="image-lightbox-modal" class="lightbox-modal" aria-hidden="true" role="dialog">
+    <span class="lightbox-close" id="lightbox-close-btn">&times;</span>
+    <button class="lightbox-prev" id="lightbox-prev-btn" aria-label="Previous image">&#10094;</button>
+    <div class="lightbox-content">
+        <img id="lightbox-img" src="" alt="Detail Gambar">
+    </div>
+    <button class="lightbox-next" id="lightbox-next-btn" aria-label="Next image">&#10095;</button>
+    <div class="lightbox-caption" id="lightbox-caption-el"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const thumbnails = document.querySelectorAll('.detail-small-image-btn');
+    const mainImg = document.getElementById('product-main-img-el');
+    const mainImgContainer = document.getElementById('main-image-container');
+    
+    const modal = document.getElementById('image-lightbox-modal');
+    const modalImg = document.getElementById('lightbox-img');
+    const modalCaption = document.getElementById('lightbox-caption-el');
+    const closeBtn = document.getElementById('lightbox-close-btn');
+    const prevBtn = document.getElementById('lightbox-prev-btn');
+    const nextBtn = document.getElementById('lightbox-next-btn');
+    
+    const productTitle = <?php echo json_encode($product_title); ?>;
+    const images = <?php echo json_encode($images); ?>;
+    let currentIndex = 0;
+    
+    function updateMainImage(index) {
+        currentIndex = index;
+        const newUrl = images[currentIndex];
+        
+        if (mainImg) {
+            mainImg.style.opacity = '0';
+            setTimeout(() => {
+                mainImg.src = newUrl;
+                mainImg.style.opacity = '1';
+            }, 150);
+        }
+        
+        thumbnails.forEach((btn, idx) => {
+            if (idx === currentIndex) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+    
+    thumbnails.forEach((btn, index) => {
+        btn.addEventListener('click', function() {
+            updateMainImage(index);
+        });
+    });
+    
+    function openLightbox() {
+        if (!modal || !modalImg) return;
+        modalImg.src = images[currentIndex];
+        if (modalCaption) {
+            modalCaption.textContent = `${productTitle} - Gambar ${currentIndex + 1} dari ${images.length}`;
+        }
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        modal.setAttribute('aria-hidden', 'false');
+        
+        if (prevBtn && nextBtn) {
+            if (images.length <= 1) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            }
+        }
+    }
+    
+    function closeLightbox() {
+        if (!modal) return;
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+        modal.setAttribute('aria-hidden', 'true');
+    }
+    
+    function navigateLightbox(direction) {
+        if (direction === 'next') {
+            currentIndex = (currentIndex + 1) % images.length;
+        } else if (direction === 'prev') {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+        }
+        updateMainImage(currentIndex);
+        if (modalImg) modalImg.src = images[currentIndex];
+        if (modalCaption) {
+            modalCaption.textContent = `${productTitle} - Gambar ${currentIndex + 1} dari ${images.length}`;
+        }
+    }
+    
+    if (mainImgContainer) {
+        mainImgContainer.addEventListener('click', openLightbox);
+    }
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeLightbox);
+    }
+    
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal || e.target.classList.contains('lightbox-content')) {
+                closeLightbox();
+            }
+        });
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navigateLightbox('prev');
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navigateLightbox('next');
+        });
+    }
+    
+    document.addEventListener('keydown', function(e) {
+        if (!modal || !modal.classList.contains('show')) return;
+        
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowRight' && images.length > 1) {
+            navigateLightbox('next');
+        } else if (e.key === 'ArrowLeft' && images.length > 1) {
+            navigateLightbox('prev');
+        }
+    });
+});
+</script>
 
 <?php get_footer(); ?>

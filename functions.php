@@ -200,6 +200,54 @@ function kst_ub_register_acf_field_groups() {
       'active' => true,
     )
   );
+
+  acf_add_local_field_group(
+    array(
+      'key' => 'group_kst_ub_produk_detail',
+      'title' => 'Detail Gambar Produk',
+      'fields' => array(
+        array(
+          'key' => 'field_kst_ub_produk_gambar_1',
+          'label' => 'Gambar Detail 1',
+          'name' => 'gambar_detail_1',
+          'type' => 'image',
+          'return_format' => 'url',
+          'preview_size' => 'medium',
+          'library' => 'all',
+        ),
+        array(
+          'key' => 'field_kst_ub_produk_gambar_2',
+          'label' => 'Gambar Detail 2',
+          'name' => 'gambar_detail_2',
+          'type' => 'image',
+          'return_format' => 'url',
+          'preview_size' => 'medium',
+          'library' => 'all',
+        ),
+        array(
+          'key' => 'field_kst_ub_produk_gambar_3',
+          'label' => 'Gambar Detail 3',
+          'name' => 'gambar_detail_3',
+          'type' => 'image',
+          'return_format' => 'url',
+          'preview_size' => 'medium',
+          'library' => 'all',
+        ),
+      ),
+      'location' => array(
+        array(
+          array(
+            'param' => 'post_type',
+            'operator' => '==',
+            'value' => 'produk',
+          ),
+        ),
+      ),
+      'position' => 'normal',
+      'style' => 'default',
+      'active' => true,
+    )
+  );
 }
 
 add_action('acf/init', 'kst_ub_register_acf_field_groups');
