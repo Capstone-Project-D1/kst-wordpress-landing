@@ -21,6 +21,7 @@
             <a href="<?php echo esc_url(home_url('/#mitra')); ?>">Mitra</a>
             <a href="<?php echo esc_url(home_url('/#produk')); ?>">Produk</a>
             <a href="<?php echo esc_url(home_url('/#berita')); ?>">Berita</a>
+            <a href="https://fe-kst.vercel.app/" target="_blank" rel="noopener noreferrer">Dashboard Executive</a>
         </nav>
     </div>
 

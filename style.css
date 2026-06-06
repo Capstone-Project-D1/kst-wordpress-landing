@@ -111,6 +111,19 @@ body.admin-bar .navbar {
   transform: translateY(-1px);
 }
 
+.nav-menu a.dashboard-link {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+  font-weight: 600;
+}
+
+.nav-menu a.dashboard-link:hover {
+  background: #ffffff;
+  color: var(--green);
+  border-color: #ffffff;
+  opacity: 1;
+}
+
 /* HERO */
 .hero {
   min-height: 640px;

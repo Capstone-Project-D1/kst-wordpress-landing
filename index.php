@@ -47,13 +47,31 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
           $kst_tema_unggulan = function_exists('get_field') ? get_field('kst_tema_unggulan') : '';
           $kst_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
           $kst_image = $kst_image ? $kst_image : 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&auto=format&fit=crop';
-          $kst_desc = has_excerpt() ? get_the_excerpt() : apply_filters('the_content', get_the_content());
+          global $post, $more;
+          if ( has_excerpt() ) {
+              $kst_desc = get_the_excerpt();
+          } elseif ( strpos( $post->post_content, '<!--more-->' ) !== false ) {
+              $old_more = $more;
+              $more = 0;
+              $kst_desc = apply_filters('the_content', get_the_content(''));
+              $more = $old_more;
+          } else {
+              $kst_desc = wp_trim_words(wp_strip_all_tags(get_the_content()), 40);
+          }
           $kst_item_class = (1 === $kst_index % 2) ? 'kst-item reverse' : 'kst-item';
         ?>
             <div class="<?php echo esc_attr($kst_item_class); ?>">
                 <div class="kst-text">
                     <h2><?php the_title(); ?></h2>
-                    <p><?php echo wp_kses_post( $kst_desc ); ?></p>
+                    <div class="kst-desc">
+                        <?php 
+                        if ( strip_tags( $kst_desc ) === $kst_desc ) {
+                            echo '<p>' . wp_kses_post( $kst_desc ) . '</p>';
+                        } else {
+                            echo wp_kses_post( $kst_desc );
+                        }
+                        ?>
+                    </div>
 
                     <!-- <div class="kst-list">
                         <span><?php echo esc_html($kst_lokasi ? $kst_lokasi : 'Lokasi belum diisi'); ?></span>
