@@ -984,3 +984,513 @@ body.admin-bar .navbar {
     line-height: 1.7;
   }
 }
+
+/* KST Website Action Styles */
+.kst-website-action {
+  margin-top: 24px;
+  width: 100%;
+}
+
+.btn-kst-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--green);
+  color: white;
+  border: 1px solid var(--green);
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(47, 163, 107, 0.15);
+}
+
+.btn-kst-trigger:hover {
+  background-color: var(--green-dark);
+  border-color: var(--green-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(47, 163, 107, 0.25);
+}
+
+.btn-kst-trigger .arrow-icon {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-kst-trigger:hover .arrow-icon {
+  transform: translateX(3px);
+}
+
+/* Modal Overlay Background */
+.kst-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 24px;
+}
+
+.kst-modal-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Modal Content Card */
+.kst-modal-container {
+  background: white;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.kst-modal-overlay.is-visible .kst-modal-container {
+  transform: scale(1);
+}
+
+/* Modal Header */
+.kst-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background-color: #fafbfc;
+}
+
+.kst-modal-header h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--dark);
+  margin: 0;
+}
+
+.btn-kst-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.btn-kst-modal-close:hover {
+  color: var(--dark);
+  background-color: #f3f4f6;
+}
+
+/* Modal Body */
+.kst-modal-body {
+  padding: 20px;
+}
+
+/* KST Info Alert inside Modal */
+.kst-website-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: #f3fbf7;
+  border-left: 4px solid var(--green);
+  padding: 12px 14px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 20px;
+}
+
+.kst-website-info .info-icon {
+  color: var(--green);
+  flex-shrink: 0;
+  display: inline-flex;
+  margin-top: 2px;
+}
+
+.kst-website-info .info-text {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #374151 !important;
+  margin-bottom: 0 !important;
+  text-align: left !important;
+}
+
+/* Modal Action Buttons */
+.kst-website-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-kst-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 6px;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.btn-kst-action.btn-landing {
+  background-color: var(--green);
+  color: white !important;
+  border: 1px solid var(--green);
+}
+
+.btn-kst-action.btn-landing:hover {
+  background-color: var(--green-dark);
+  border-color: var(--green-dark);
+}
+
+.btn-kst-action.btn-dashboard {
+  background-color: white;
+  color: #374151 !important;
+  border: 1px solid #d1d5db;
+}
+
+.btn-kst-action.btn-dashboard:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* Body scroll lock */
+body.kst-modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .kst-website-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* KST Actions Group */
+.kst-website-actions-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-kst-detail {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--green) !important;
+  border: 1px solid var(--green);
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none !important;
+}
+
+.btn-kst-detail:hover {
+  background-color: rgba(47, 163, 107, 0.05);
+  transform: translateY(-1px);
+}
+
+/* KST Detail Page Styles */
+.kst-detail-page {
+  background: var(--soft);
+  min-height: calc(100vh - 74px - 240px);
+}
+
+.kst-detail-hero {
+  padding: 64px 0 54px;
+  color: white;
+  position: relative;
+}
+
+.kst-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 20px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.kst-back-btn:hover {
+  color: white;
+  transform: translateX(-3px);
+}
+
+.kst-back-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.kst-detail-title {
+  font-size: clamp(32px, 5vw, 44px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.kst-detail-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.kst-detail-badges .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  color: white;
+}
+
+.kst-detail-badges .badge svg {
+  opacity: 0.9;
+}
+
+/* Detail Grid Layout */
+.kst-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 32px;
+  align-items: start;
+}
+
+.kst-detail-content-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.kst-detail-content-card h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f3f4f6;
+  padding-bottom: 12px;
+}
+
+.kst-detail-body-text {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #374151;
+}
+
+.kst-detail-body-text p {
+  margin-bottom: 16px;
+}
+
+.kst-detail-body-text ul {
+  margin: 0 0 18px 1.25rem;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.kst-detail-body-text ul li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
+/* Map Embed styling */
+.kst-map-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.kst-map-wrapper iframe {
+  display: block;
+  width: 100%;
+  height: 350px;
+  border: none;
+}
+
+/* Sidebar styling */
+.kst-detail-sidebar {
+  display: grid;
+  gap: 28px;
+}
+
+.kst-sidebar-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.kst-sidebar-card h3 {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 16px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 10px;
+}
+
+/* Service actions */
+.sidebar-info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.sidebar-info-box svg {
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.sidebar-info-box p {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}
+
+.sidebar-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-kst-sidebar-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 6px;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+  width: 100%;
+  cursor: pointer;
+}
+
+.btn-kst-sidebar-action.btn-landing {
+  background-color: var(--green);
+  color: white !important;
+  border: 1px solid var(--green);
+}
+
+.btn-kst-sidebar-action.btn-landing:hover {
+  background-color: var(--green-dark);
+  border-color: var(--green-dark);
+}
+
+.btn-kst-sidebar-action.btn-dashboard {
+  background-color: white;
+  color: #374151 !important;
+  border: 1px solid #d1d5db;
+}
+
+.btn-kst-sidebar-action.btn-dashboard:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* Contact List Sidebar */
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.contact-list li:last-child {
+  margin-bottom: 0;
+}
+
+.contact-list .contact-icon {
+  color: var(--green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.contact-list .contact-text {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.contact-list .contact-text strong {
+  display: block;
+  color: var(--dark);
+  margin-bottom: 2px;
+}
+
+.contact-list .contact-text p {
+  color: #4b5563;
+  margin: 0;
+}
+
+.contact-list .contact-text a {
+  color: var(--green);
+}
+
+.contact-list .contact-text a:hover {
+  text-decoration: underline;
+}
+
+/* Responsiveness for Detail Page */
+@media (max-width: 900px) {
+  .kst-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .kst-detail-hero {
+    padding: 48px 0 38px;
+  }
+}

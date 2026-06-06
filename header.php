@@ -17,7 +17,7 @@
                     alt="Logo Universitas Brawijaya">
             </a>
             <nav class="nav-menu" aria-label="Navigasi utama">
-                <a href="<?php echo esc_url(home_url('/#profil')); ?>">Profil</a>
+                <a href="<?php echo esc_url(home_url('/#profil')); ?>">Kawasan KST</a>
                 <a href="<?php echo esc_url(home_url('/#mitra')); ?>">Mitra</a>
                 <a href="<?php echo esc_url(home_url('/#produk')); ?>">Produk</a>
                 <a href="<?php echo esc_url(home_url('/#berita')); ?>">Berita</a>

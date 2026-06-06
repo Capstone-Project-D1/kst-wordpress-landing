@@ -10,6 +10,15 @@ $berita_base_url = kst_get_berita_url();
 $detail_id = isset($_GET['detail']) ? absint(wp_unslash($_GET['detail'])) : 0;
 $detail_post = $detail_id ? get_post($detail_id) : null;
 $is_detail = $detail_post instanceof WP_Post && 'berita' === $detail_post->post_type;
+
+$from_home = isset($_GET['from']) && 'home' === sanitize_text_field(wp_unslash($_GET['from']));
+if ($from_home) {
+    $back_url = home_url('/#berita');
+    $back_text = '← Kembali ke Beranda';
+} else {
+    $back_url = $berita_base_url;
+    $back_text = '← Kembali ke daftar berita';
+}
 ?>
 
 <main>
@@ -22,7 +31,7 @@ $is_detail = $detail_post instanceof WP_Post && 'berita' === $detail_post->post_
     ?>
     <section class="berita-page berita-detail-page" id="berita">
         <div class="container berita-detail-wrap">
-            <a class="berita-back-link" href="<?php echo esc_url($berita_base_url); ?>">← Kembali ke daftar berita</a>
+            <a class="berita-back-link" href="<?php echo esc_url($back_url); ?>"><?php echo esc_html($back_text); ?></a>
 
             <header class="berita-detail-header">
                 <span class="berita-kicker">Berita KST</span>
@@ -63,8 +72,13 @@ $is_detail = $detail_post instanceof WP_Post && 'berita' === $detail_post->post_
                 $related_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
                 $related_image = $related_image ? $related_image : 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&auto=format&fit=crop';
               ?>
-                    <article class="berita-card">
-                        <a class="berita-card-link" href="<?php echo esc_url(kst_get_berita_url(get_the_ID())); ?>">
+                        <?php
+                        $related_link = kst_get_berita_url(get_the_ID());
+                        if ($from_home) {
+                            $related_link = add_query_arg('from', 'home', $related_link);
+                        }
+                        ?>
+                        <a class="berita-card-link" href="<?php echo esc_url($related_link); ?>">
                             <div class="berita-card-image">
                                 <img src="<?php echo esc_url($related_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
                             </div>

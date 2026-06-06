@@ -59,6 +59,74 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
                         <span><?php echo esc_html($kst_lokasi ? $kst_lokasi : 'Lokasi belum diisi'); ?></span>
                         <span><?php echo esc_html($kst_tema_unggulan ? $kst_tema_unggulan : 'Tema unggulan belum diisi'); ?></span>
                     </div> -->
+
+                    <?php
+                    $landing_page_url = function_exists('get_field') ? get_field('kst_landing_page_url') : '';
+                    $dashboard_url = function_exists('get_field') ? get_field('kst_dashboard_url') : '';
+
+                    // Fallbacks
+                    $landing_page_url = $landing_page_url ? $landing_page_url : '#';
+                    $dashboard_url = $dashboard_url ? $dashboard_url : '#';
+
+                    $kst_btn_color = function_exists('get_field') ? get_field('kst_button_color') : '';
+                    $btn_style = $kst_btn_color ? 'style="background-color: ' . esc_attr($kst_btn_color) . '; border-color: ' . esc_attr($kst_btn_color) . ';"' : '';
+                    ?>
+                    <div class="kst-website-action">
+                        <div class="kst-website-actions-group">
+                            <a href="<?php the_permalink(); ?>" class="btn-kst-detail">
+                                <span>Detail Kawasan</span>
+                            </a>
+                            <button class="btn-kst-trigger" onclick="openKstModal(<?php the_ID(); ?>)">
+                                <span>Kunjungi Website</span>
+                                <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Modal Overlay -->
+                        <div class="kst-modal-overlay" id="kst-modal-<?php the_ID(); ?>">
+                            <div class="kst-modal-container">
+                                <div class="kst-modal-header">
+                                    <h3>Kunjungi Website <?php the_title(); ?></h3>
+                                    <button class="btn-kst-modal-close" onclick="closeKstModal(<?php the_ID(); ?>)" aria-label="Tutup">&times;</button>
+                                </div>
+                                <div class="kst-modal-body">
+                                    <div class="kst-website-info">
+                                        <div class="info-icon">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                            </svg>
+                                        </div>
+                                        <p class="info-text">
+                                            <strong>Pemberitahuan:</strong> Publik hanya dapat mengakses halaman <strong>Landing Page</strong>. Halaman <strong>Dashboard</strong> hanya dapat diakses oleh pengguna yang memiliki akun resmi.
+                                        </p>
+                                    </div>
+
+                                    <div class="kst-website-buttons">
+                                        <a href="<?php echo esc_url($landing_page_url); ?>" class="btn-kst-action btn-landing" target="_blank">
+                                            <span>Landing Page</span>
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                                <polyline points="15 3 21 3 21 9"></polyline>
+                                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                                            </svg>
+                                        </a>
+                                        <a href="<?php echo esc_url($dashboard_url); ?>" class="btn-kst-action btn-dashboard" target="_blank">
+                                            <span>Dashboard</span>
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="kst-image">
@@ -207,7 +275,7 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
           $news_excerpt = has_excerpt() ? get_the_excerpt() : wp_trim_words(wp_strip_all_tags(get_the_content()), 18);
         ?>
                 <article class="news-card">
-                    <a class="news-card-link" href="<?php echo esc_url(kst_get_berita_url(get_the_ID())); ?>">
+                    <a class="news-card-link" href="<?php echo esc_url(add_query_arg('from', 'home', kst_get_berita_url(get_the_ID()))); ?>">
                         <div class="news-image">
                             <img src="<?php echo esc_url($news_image); ?>"
                                 alt="<?php echo esc_attr(get_the_title()); ?>">
