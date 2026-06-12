@@ -245,7 +245,18 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
                 <a href="<?php echo esc_url(kst_get_product_url(get_post_field('post_name', get_the_ID()))); ?>"
                     class="product-card">
                     <div class="product-image">
-                        <span class="tag">PRODUK KST</span>
+                        <div class="product-tags">
+                            <span class="tag tag-type">PRODUK</span>
+                            <?php 
+                            $kst_id = function_exists('get_field') ? get_field('relasi_kst', get_the_ID()) : null;
+                            if ($kst_id) : 
+                                $kst_title = get_the_title($kst_id);
+                                $kst_color = function_exists('get_field') ? get_field('kst_button_color', $kst_id) : '';
+                                $kst_bg_color = $kst_color ? $kst_color : 'var(--green)';
+                            ?>
+                                <span class="tag tag-kst" style="background-color: <?php echo esc_attr($kst_bg_color); ?>;"><?php echo esc_html($kst_title); ?></span>
+                            <?php endif; ?>
+                        </div>
                         <img src="<?php echo esc_url($product_image); ?>"
                             alt="<?php echo esc_attr(get_the_title()); ?>">
                     </div>
@@ -300,7 +311,18 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
                         </div>
 
                         <div class="news-content">
-                            <div class="category">Berita KST</div>
+                            <div class="category">
+                                <span>Berita</span>
+                                <?php 
+                                $kst_id = function_exists('get_field') ? get_field('relasi_kst', get_the_ID()) : null;
+                                if ($kst_id) : 
+                                    $kst_title = get_the_title($kst_id);
+                                    $kst_color = function_exists('get_field') ? get_field('kst_button_color', $kst_id) : '';
+                                    $kst_bg_color = $kst_color ? $kst_color : 'var(--green)';
+                                ?>
+                                    <span class="news-kst-badge" style="background-color: <?php echo esc_attr($kst_bg_color); ?>;"><?php echo esc_html($kst_title); ?></span>
+                                <?php endif; ?>
+                            </div>
                             <h3><?php the_title(); ?></h3>
                             <p><?php echo esc_html($news_excerpt); ?></p>
 

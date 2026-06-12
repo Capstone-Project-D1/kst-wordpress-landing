@@ -522,6 +522,25 @@ $product_main_image = $images[0];
 
                 <h1><?php echo esc_html($product_title); ?></h1>
 
+                <?php 
+                $kst_id = function_exists('get_field') ? get_field('relasi_kst', $current_product_id) : null;
+                if ($kst_id) : 
+                    $kst_title = get_the_title($kst_id);
+                    $kst_color = function_exists('get_field') ? get_field('kst_button_color', $kst_id) : '';
+                    $kst_bg_color = $kst_color ? $kst_color : 'var(--green)';
+                ?>
+                    <div class="product-kst-wrapper">
+                        <span class="detail-label">Kawasan Asal:</span>
+                        <a href="<?php echo esc_url(get_permalink($kst_id)); ?>" class="detail-kst-badge" style="background-color: <?php echo esc_attr($kst_bg_color); ?>;">
+                            <svg class="badge-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <?php echo esc_html($kst_title); ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+
                 <p><?php echo esc_html(wp_trim_words($product_content, 46)); ?></p>
 
                 <?php if (count($images) > 1) : ?>
@@ -574,7 +593,18 @@ $product_main_image = $images[0];
         ?>
                                 <a href="<?php echo esc_url(kst_get_product_url(get_post_field('post_name', get_the_ID()))); ?>" class="related-product-card">
                     <div class="related-product-image">
-                                                <span class="tag">PRODUK KST</span>
+                                                <div class="product-tags">
+                                                    <span class="tag tag-type">PRODUK</span>
+                                                    <?php 
+                                                    $kst_id = function_exists('get_field') ? get_field('relasi_kst', get_the_ID()) : null;
+                                                    if ($kst_id) : 
+                                                        $kst_title = get_the_title($kst_id);
+                                                        $kst_color = function_exists('get_field') ? get_field('kst_button_color', $kst_id) : '';
+                                                        $kst_bg_color = $kst_color ? $kst_color : 'var(--green)';
+                                                    ?>
+                                                        <span class="tag tag-kst" style="background-color: <?php echo esc_attr($kst_bg_color); ?>;"><?php echo esc_html($kst_title); ?></span>
+                                                    <?php endif; ?>
+                                                </div>
                                                 <img src="<?php echo esc_url($related_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
                     </div>
 

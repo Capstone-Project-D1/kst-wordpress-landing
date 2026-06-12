@@ -292,6 +292,46 @@ function kst_ub_register_acf_field_groups() {
       'active' => true,
     )
   );
+
+  acf_add_local_field_group(
+    array(
+      'key' => 'group_kst_ub_relasi_kawasan',
+      'title' => 'Relasi Kawasan KST',
+      'fields' => array(
+        array(
+          'key' => 'field_kst_ub_relasi_kst',
+          'label' => 'Kawasan KST',
+          'name' => 'relasi_kst',
+          'type' => 'post_object',
+          'post_type' => array('kst'),
+          'taxonomy' => '',
+          'allow_null' => 1,
+          'multiple' => 0,
+          'return_format' => 'id',
+          'ui' => 1,
+        ),
+      ),
+      'location' => array(
+        array(
+          array(
+            'param' => 'post_type',
+            'operator' => '==',
+            'value' => 'produk',
+          ),
+        ),
+        array(
+          array(
+            'param' => 'post_type',
+            'operator' => '==',
+            'value' => 'berita',
+          ),
+        ),
+      ),
+      'position' => 'side',
+      'style' => 'default',
+      'active' => true,
+    )
+  );
 }
 
 add_action('acf/init', 'kst_ub_register_acf_field_groups');

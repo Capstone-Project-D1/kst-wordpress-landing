@@ -1507,3 +1507,130 @@ body.kst-modal-open {
     padding: 48px 0 38px;
   }
 }
+
+/* --- KST RELATED POST BADGES & TAGS --- */
+
+/* Product Card Tags */
+.product-tags {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.product-tags .tag {
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+}
+
+.product-tags .tag-type {
+  background: rgba(17, 24, 39, 0.9);
+}
+
+.product-tags .tag-kst {
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.2px;
+}
+
+/* Category & News Badge */
+.category {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.news-kst-badge {
+  color: white;
+  font-size: 9px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  display: inline-block;
+  line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* Single Product Detail Page Badge */
+.product-kst-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  margin-top: -12px;
+}
+
+.product-kst-wrapper .detail-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-kst-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 999px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.detail-kst-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  color: white;
+}
+
+.detail-kst-badge .badge-icon {
+  flex-shrink: 0;
+}
+
+/* News Detail Header Badge */
+.berita-detail-kicker-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.berita-detail-kicker-wrap .berita-kicker {
+  margin-bottom: 0;
+}
+
+.berita-detail-kst-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 11px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.berita-detail-kst-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  color: white;
+}
+
+.berita-detail-kst-link svg {
+  flex-shrink: 0;
+}
+

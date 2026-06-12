@@ -34,7 +34,24 @@ if ($from_home) {
             <a class="berita-back-link" href="<?php echo esc_url($back_url); ?>"><?php echo esc_html($back_text); ?></a>
 
             <header class="berita-detail-header">
-                <span class="berita-kicker">Berita KST</span>
+                <div class="berita-detail-kicker-wrap">
+                    <span class="berita-kicker">Berita KST</span>
+                    <?php 
+                    $kst_id = function_exists('get_field') ? get_field('relasi_kst', $detail_post->ID) : null;
+                    if ($kst_id) : 
+                        $kst_title = get_the_title($kst_id);
+                        $kst_color = function_exists('get_field') ? get_field('kst_button_color', $kst_id) : '';
+                        $kst_bg_color = $kst_color ? $kst_color : 'var(--green)';
+                    ?>
+                        <a href="<?php echo esc_url(get_permalink($kst_id)); ?>" class="berita-detail-kst-link" style="background-color: <?php echo esc_attr($kst_bg_color); ?>;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <?php echo esc_html($kst_title); ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
                 <h1 class="berita-title"><?php echo esc_html($detail_title); ?></h1>
                 <p class="berita-subtitle">
                     Ditulis oleh <?php echo esc_html(get_the_author_meta('display_name', (int) $detail_post->post_author)); ?> • <?php echo esc_html(get_the_date('d F Y', $detail_post)); ?> • 5 menit membaca
@@ -85,7 +102,16 @@ if ($from_home) {
 
                             <div class="berita-card-content">
                                 <div class="berita-meta">
-                                    <span>Berita KST</span>
+                                    <span>Berita</span>
+                                    <?php 
+                                    $kst_id = function_exists('get_field') ? get_field('relasi_kst', get_the_ID()) : null;
+                                    if ($kst_id) : 
+                                        $kst_title = get_the_title($kst_id);
+                                        $kst_color = function_exists('get_field') ? get_field('kst_button_color', $kst_id) : '';
+                                        $kst_bg_color = $kst_color ? $kst_color : 'var(--green)';
+                                    ?>
+                                        <span class="news-kst-badge" style="background-color: <?php echo esc_attr($kst_bg_color); ?>;"><?php echo esc_html($kst_title); ?></span>
+                                    <?php endif; ?>
                                     <span><?php echo esc_html(get_the_date('d F Y')); ?></span>
                                 </div>
 
@@ -141,7 +167,16 @@ if ($from_home) {
 
                         <div class="berita-card-content">
                             <div class="berita-meta">
-                                <span>Berita KST</span>
+                                <span>Berita</span>
+                                <?php 
+                                $kst_id = function_exists('get_field') ? get_field('relasi_kst', get_the_ID()) : null;
+                                if ($kst_id) : 
+                                    $kst_title = get_the_title($kst_id);
+                                    $kst_color = function_exists('get_field') ? get_field('kst_button_color', $kst_id) : '';
+                                    $kst_bg_color = $kst_color ? $kst_color : 'var(--green)';
+                                ?>
+                                    <span class="news-kst-badge" style="background-color: <?php echo esc_attr($kst_bg_color); ?>;"><?php echo esc_html($kst_title); ?></span>
+                                <?php endif; ?>
                                 <span><?php echo esc_html(get_the_date('d F Y')); ?></span>
                             </div>
 
