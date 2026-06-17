@@ -96,7 +96,9 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
                             </a>
                             <button class="btn-kst-trigger" onclick="openKstModal(<?php the_ID(); ?>)">
                                 <span>Kunjungi Website</span>
-                                <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                     <polyline points="12 5 19 12 12 19"></polyline>
                                 </svg>
@@ -108,38 +110,51 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
                             <div class="kst-modal-container">
                                 <div class="kst-modal-header">
                                     <h3>Kunjungi Website <?php the_title(); ?></h3>
-                                    <button class="btn-kst-modal-close" onclick="closeKstModal(<?php the_ID(); ?>)" aria-label="Tutup">&times;</button>
+                                    <button class="btn-kst-modal-close" onclick="closeKstModal(<?php the_ID(); ?>)"
+                                        aria-label="Tutup">&times;</button>
                                 </div>
                                 <div class="kst-modal-body">
                                     <div class="kst-website-info">
                                         <div class="info-icon">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
                                                 <circle cx="12" cy="12" r="10"></circle>
                                                 <line x1="12" y1="16" x2="12" y2="12"></line>
                                                 <line x1="12" y1="8" x2="12.01" y2="8"></line>
                                             </svg>
                                         </div>
+                                        <!-- <p class="info-text">
+                                            <strong>Pemberitahuan:</strong> Publik hanya dapat mengakses halaman
+                                            <strong>Landing Page</strong>. Halaman <strong>Dashboard</strong> hanya
+                                            dapat diakses oleh pengguna yang memiliki akun resmi.
+                                        </p> -->
                                         <p class="info-text">
-                                            <strong>Pemberitahuan:</strong> Publik hanya dapat mengakses halaman <strong>Landing Page</strong>. Halaman <strong>Dashboard</strong> hanya dapat diakses oleh pengguna yang memiliki akun resmi.
+                                            <strong>Pemberitahuan:</strong> Publik hanya dapat mengakses halaman
+                                            <strong>Landing Page</strong>.
                                         </p>
                                     </div>
 
                                     <div class="kst-website-buttons">
-                                        <a href="<?php echo esc_url($landing_page_url); ?>" class="btn-kst-action btn-landing" target="_blank">
+                                        <a href="<?php echo esc_url($landing_page_url); ?>"
+                                            class="btn-kst-action btn-landing" target="_blank">
                                             <span>Landing Page</span>
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6">
+                                                </path>
                                                 <polyline points="15 3 21 3 21 9"></polyline>
                                                 <line x1="10" y1="14" x2="21" y2="3"></line>
                                             </svg>
                                         </a>
-                                        <a href="<?php echo esc_url($dashboard_url); ?>" class="btn-kst-action btn-dashboard" target="_blank">
+                                        <!-- <a href="<?php echo esc_url($dashboard_url); ?>" class="btn-kst-action btn-dashboard" target="_blank">
                                             <span>Dashboard</span>
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                                 <circle cx="12" cy="7" r="4"></circle>
                                             </svg>
-                                        </a>
+                                        </a> -->
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +185,7 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
     <section class="partner-strip" id="mitra">
         <h2>MITRA STRATEGIS</h2>
 
-                <?php
+        <?php
             $partners = function_exists('kst_get_partner_items') ? kst_get_partner_items() : array();
 
             if (empty($partners)) {
@@ -190,30 +205,32 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
 
         <div class="partner-marquee">
             <div class="partner-track">
-                                <?php foreach ($partners as $partner): ?>
-                                <div class="partner-item">
-                                        <span class="partner-logo" aria-hidden="true">
-                                                <?php if (!empty($partner['logo_id'])) : ?>
-                                                <?php echo wp_get_attachment_image((int) $partner['logo_id'], 'thumbnail', false, array('class' => 'partner-logo-image', 'alt' => esc_attr($partner['name']))); ?>
-                                                <?php else : ?>
-                                                <span class="partner-logo-fallback"><?php echo esc_html(mb_substr($partner['name'], 0, 1)); ?></span>
-                                                <?php endif; ?>
-                                        </span>
-                                        <span class="partner-name"><?php echo esc_html($partner['name']); ?></span>
-                                </div>
-                                <?php endforeach; ?>
+                <?php foreach ($partners as $partner): ?>
+                <div class="partner-item">
+                    <span class="partner-logo" aria-hidden="true">
+                        <?php if (!empty($partner['logo_id'])) : ?>
+                        <?php echo wp_get_attachment_image((int) $partner['logo_id'], 'thumbnail', false, array('class' => 'partner-logo-image', 'alt' => esc_attr($partner['name']))); ?>
+                        <?php else : ?>
+                        <span
+                            class="partner-logo-fallback"><?php echo esc_html(mb_substr($partner['name'], 0, 1)); ?></span>
+                        <?php endif; ?>
+                    </span>
+                    <span class="partner-name"><?php echo esc_html($partner['name']); ?></span>
+                </div>
+                <?php endforeach; ?>
 
                 <?php foreach ($partners as $partner): ?>
-                                <div class="partner-item">
-                                        <span class="partner-logo" aria-hidden="true">
-                                                <?php if (!empty($partner['logo_id'])) : ?>
-                                                <?php echo wp_get_attachment_image((int) $partner['logo_id'], 'thumbnail', false, array('class' => 'partner-logo-image', 'alt' => esc_attr($partner['name']))); ?>
-                                                <?php else : ?>
-                                                <span class="partner-logo-fallback"><?php echo esc_html(mb_substr($partner['name'], 0, 1)); ?></span>
-                                                <?php endif; ?>
-                                        </span>
-                                        <span class="partner-name"><?php echo esc_html($partner['name']); ?></span>
-                                </div>
+                <div class="partner-item">
+                    <span class="partner-logo" aria-hidden="true">
+                        <?php if (!empty($partner['logo_id'])) : ?>
+                        <?php echo wp_get_attachment_image((int) $partner['logo_id'], 'thumbnail', false, array('class' => 'partner-logo-image', 'alt' => esc_attr($partner['name']))); ?>
+                        <?php else : ?>
+                        <span
+                            class="partner-logo-fallback"><?php echo esc_html(mb_substr($partner['name'], 0, 1)); ?></span>
+                        <?php endif; ?>
+                    </span>
+                    <span class="partner-name"><?php echo esc_html($partner['name']); ?></span>
+                </div>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -254,7 +271,8 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
                                 $kst_color = function_exists('get_field') ? get_field('kst_button_color', $kst_id) : '';
                                 $kst_bg_color = $kst_color ? $kst_color : 'var(--green)';
                             ?>
-                                <span class="tag tag-kst" style="background-color: <?php echo esc_attr($kst_bg_color); ?>;"><?php echo esc_html($kst_title); ?></span>
+                            <span class="tag tag-kst"
+                                style="background-color: <?php echo esc_attr($kst_bg_color); ?>;"><?php echo esc_html($kst_title); ?></span>
                             <?php endif; ?>
                         </div>
                         <img src="<?php echo esc_url($product_image); ?>"
@@ -304,7 +322,8 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
           $news_excerpt = has_excerpt() ? get_the_excerpt() : wp_trim_words(wp_strip_all_tags(get_the_content()), 18);
         ?>
                 <article class="news-card">
-                    <a class="news-card-link" href="<?php echo esc_url(add_query_arg('from', 'home', kst_get_berita_url(get_the_ID()))); ?>">
+                    <a class="news-card-link"
+                        href="<?php echo esc_url(add_query_arg('from', 'home', kst_get_berita_url(get_the_ID()))); ?>">
                         <div class="news-image">
                             <img src="<?php echo esc_url($news_image); ?>"
                                 alt="<?php echo esc_attr(get_the_title()); ?>">
@@ -320,7 +339,8 @@ $hero_background = $hero_background ? $hero_background : 'https://images.unsplas
                                     $kst_color = function_exists('get_field') ? get_field('kst_button_color', $kst_id) : '';
                                     $kst_bg_color = $kst_color ? $kst_color : 'var(--green)';
                                 ?>
-                                    <span class="news-kst-badge" style="background-color: <?php echo esc_attr($kst_bg_color); ?>;"><?php echo esc_html($kst_title); ?></span>
+                                <span class="news-kst-badge"
+                                    style="background-color: <?php echo esc_attr($kst_bg_color); ?>;"><?php echo esc_html($kst_title); ?></span>
                                 <?php endif; ?>
                             </div>
                             <h3><?php the_title(); ?></h3>
